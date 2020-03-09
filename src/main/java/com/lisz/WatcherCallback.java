@@ -3,6 +3,7 @@ package com.lisz;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -55,6 +56,7 @@ public class WatcherCallback implements AsyncCallback.StringCallback, AsyncCallb
     @Override
     public void processResult(int rc, String path, Object ctx, List<String> children, Stat stat) {
         System.out.println(threadName + " is looking lock ...");
+        Collections.sort(children);
         int index = children.indexOf(pathName.substring(1));
         if (index == 0) {
             System.out.println(threadName + " is the first and gets the lock");
